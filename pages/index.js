@@ -4,16 +4,28 @@
  * create time 2018-12-30 14:17
  */
 import '../style/index.less';
+import Head from 'next/head'
+import React, {Component} from 'react';
 
-function Index() {
-    let str = 'yanlele';
+class Index extends Component {
+    constructor() {
+        super();
 
-    return (
-        <div>
-            <p>hello 123</p>
-            <p className="test">{str}</p>
-        </div>
-    )
+        console.log(123);
+    }
+
+    render() {
+        let str = 'yanlele';
+        return (
+            <div>
+                <Head>
+                    <title>My page title</title>
+                </Head>
+                <p>hello 123</p>
+                <p className="test">{str}</p>
+            </div>
+        )
+    }
 }
 
 export default Index;
