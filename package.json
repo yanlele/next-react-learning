@@ -4,7 +4,9 @@
   "description": "next服务端渲染react学习",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
   },
   "repository": {
     "type": "git",
@@ -15,5 +17,12 @@
   "bugs": {
     "url": "https://github.com/yanlele/next-react-learning/issues"
   },
-  "homepage": "https://github.com/yanlele/next-react-learning#readme"
+  "homepage": "https://github.com/yanlele/next-react-learning#readme",
+  "dependencies": {
+    "@zeit/next-less": "^1.0.1",
+    "less": "^3.9.0",
+    "next": "^7.0.2",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0"
+  }
 }
