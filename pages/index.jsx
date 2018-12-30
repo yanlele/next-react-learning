@@ -7,11 +7,13 @@ import '../style/index.less';
 import Head from 'next/head'
 import Link from 'next/link'
 import React, {Component} from 'react';
+import {Button, message} from 'antd';
 import { withRouter } from 'next/router'
 
 class Index extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+        const {router} = this.props;
     }
 
     static async getInitialProps({req}) {
@@ -34,12 +36,10 @@ class Index extends Component {
                 <p>Hello World {this.props.stars}</p>
 
                 <hr/>
-                {/*<Link href="/home/home">*/}
-                    {/*<a>here</a>*/}
-                {/*</Link>{' '}*/}
-
-                <button onClick={()=>this.props.router.push('/home/home')}>编程式跳转路由</button>
-
+                <Link href="/home/home">
+                    <a target="_blank">here</a>
+                </Link> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <Button onClick={()=>router.push('/home/home')}>编程式跳转路由</Button>
             </div>
         )
     }
