@@ -1,48 +1,28 @@
-/**
- * create by yanle
- * connect me 331393627@qq.com
- * create time 2018-12-30 14:17
- */
-import '../style/index.less';
-import Head from 'next/head'
-import Link from 'next/link'
-import React, {Component} from 'react';
-import {Button, message} from 'antd';
-import { withRouter } from 'next/router'
+import React from 'react'
+import { connect } from 'react-redux'
+import { startClock, serverRenderClock } from '../store'
+import Examples from '../components/examples'
 
-class Index extends Component {
-    constructor(props) {
-        super(props);
-        const {router} = this.props;
-    }
+class Index extends React.Component {
+  static getInitialProps ({ reduxStore, req }) {
+    const isServer = !!req
+    reduxStore.dispatch(serverRenderClock(isServer))
 
-    static async getInitialProps({req}) {
-        // const res = await fetch('https://api.github.com/repos/zeit/next.js')
-        // const json = await res.json()
-        // return { stars: json.stargazers_count }
-        return { stars:  123}
-    }
+    return {}
+  }
 
-    render() {
-        const {router} = this.props;
-        let str = 'yanlele';
-        return (
-            <div>
-                <Head>
-                    <title>My page title</title>
-                </Head>
-                <p>hello 123</p>
-                <p className="test">{str}</p>
-                <p>Hello World {this.props.stars}</p>
+  componentDidMount () {
+    const { dispatch } = this.props
+    this.timer = startClock(dispatch)
+  }
 
-                <hr/>
-                <Link href="/home/home">
-                    <a target="_blank">here</a>
-                </Link> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <Button onClick={()=>router.push('/home/home')}>编程式跳转路由</Button>
-            </div>
-        )
-    }
+  componentWillUnmount () {
+    clearInterval(this.timer)
+  }
+
+  render () {
+    return <Examples />
+  }
 }
 
-export default withRouter(Index);
+export default connect()(Index)
