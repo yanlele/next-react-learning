@@ -1,28 +1,48 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { startClock, serverRenderClock } from '../store'
-import Examples from '../components/examples'
+/**
+ * create by yanle
+ * connect me 331393627@qq.com
+ * create time 2018-12-30 14:17
+ */
+import '../style/index.less';
+import Head from 'next/head'
+import Link from 'next/link'
+import React, {Component} from 'react';
+import {Button, message} from 'antd';
+import { withRouter } from 'next/router'
 
-class Index extends React.Component {
-  static getInitialProps ({ reduxStore, req }) {
-    const isServer = !!req
-    reduxStore.dispatch(serverRenderClock(isServer))
+class Index extends Component {
+    constructor(props) {
+        super(props);
+        const {router} = this.props;
+    }
 
-    return {}
-  }
+    static async getInitialProps({req}) {
+        // const res = await fetch('https://api.github.com/repos/zeit/next.js')
+        // const json = await res.json()
+        // return { stars: json.stargazers_count }
+        return { stars:  123}
+    }
 
-  componentDidMount () {
-    const { dispatch } = this.props
-    this.timer = startClock(dispatch)
-  }
+    render() {
+        const {router} = this.props;
+        let str = 'yanlele';
+        return (
+            <div>
+                <Head>
+                    <title>My page title</title>
+                </Head>
+                <p>hello 123</p>
+                <p className="test">{str}</p>
+                <p>Hello World {this.props.stars}</p>
 
-  componentWillUnmount () {
-    clearInterval(this.timer)
-  }
-
-  render () {
-    return <Examples />
-  }
+                <hr/>
+                <Link href="/home/home">
+                    <a target="_blank">here</a>
+                </Link> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <Button onClick={()=>router.push('/home/home')}>编程式跳转路由</Button>
+            </div>
+        )
+    }
 }
 
-export default connect()(Index)
+export default withRouter(Index);
